@@ -1,9 +1,10 @@
+require('dotenv').config()
 const express = require("express");
 const bodyParser = require("body-parser");
 const jobFetcher = require("./routes/jobs")
 const cors = require("cors");
 
-const PORT = 8081;
+const PORT = process.env.PORT;
 const app = express();
 
 

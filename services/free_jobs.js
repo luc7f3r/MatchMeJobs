@@ -11,7 +11,7 @@ const {keywords} = req.body;
     try{
     const browser = await puppeteer.launch({
         headless: true,
-        executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', // Update this path
+        // executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', // Update this path
         args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
 

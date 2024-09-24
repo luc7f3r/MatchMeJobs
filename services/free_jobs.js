@@ -2,10 +2,8 @@ const puppeteer = require('puppeteer');
 const {setTimeout} = require("node:timers/promises");
 const { url } = require('node:inspector');
 
-async function getFreeJobs(req,res){
-
-const {keywords} = req.body;
-    console.log("Going ahead with keywords:",keywords);
+async function getFreeJobs(category){
+    console.log("Going ahead with keywords:",category);
 
 
     try{
@@ -18,7 +16,7 @@ const {keywords} = req.body;
     const page = await browser.newPage();
 
     // Construct the LinkedIn job search URL with time constraints (past week) and Easy Apply
-    const url = `https://www.linkedin.com/jobs/search/?keywords=${keywords}&location=India&location=India&f_TPR=r86400&f_E=4&f_WT=1&f_JT=F`;
+    const url = `https://www.linkedin.com/jobs/search/?keywords=${category}&location=India&f_TPR=r86400&f_WT=1&f_JT=F`;
     console.log(url);
     // await page.goto(url, { waitUntil: 'networkidle2', timeout: 0 });
 

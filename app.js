@@ -20,7 +20,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 // app.use("/fetch-job", jobFetcher);
 app.use("/mmj", mmj_user_routes);
-cron.schedule('20 16 * * *', async (req, res) => {
+cron.schedule('30 09 * * *', async (req, res) => {
     try {
        console.log("Starting the Application");
       const result = await getJobs();

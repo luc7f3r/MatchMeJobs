@@ -19,7 +19,7 @@ const corsOptions = {origin : true, credentials : true};
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 // app.use("/fetch-job", jobFetcher);
-app.use("/mmj", mmj_user_routes);
+app.use("/api/mmj", mmj_user_routes);
 cron.schedule('30 09 * * *', async (req, res) => {
     try {
        console.log("Starting the Application");

@@ -1,7 +1,11 @@
+require('console-stamp')(console, { 
+  format: ':date(yyyy/mm/dd HH:MM:ss.l) :label' 
+} );
 const nodemailer = require('nodemailer');
 const ReactDOMServer = require('react-dom/server');
 const React = require('react');
 const { Container, Typography, Box, Link, List, ListItem, ListItemText } = require('@mui/material');
+
 
 const transporter = nodemailer.createTransport({
     service:'gmail',
@@ -9,7 +13,7 @@ const transporter = nodemailer.createTransport({
         // user:'animeshnrg500@gmail.com',
         // pass : 'ohik xwee ourq rbip'
          user:'matchmejobs@gmail.com',
-        pass : 'ogrc reti egcy onqg'
+        pass : 'hskw mnjw gcho mpib'
     },
 });
 

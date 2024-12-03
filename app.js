@@ -1,3 +1,6 @@
+require('console-stamp')(console, { 
+    format: ':date(yyyy/mm/dd HH:MM:ss.l) :label' 
+} );
 require('dotenv').config()
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -7,6 +10,7 @@ const mmj_user_routes = require("./routes/mmj_user_routes");
 const cors = require("cors");
 const cron = require("node-cron");
 const {getJobs} = require("./controllers/jobController");
+
 
 const PORT = process.env.PORT;
 const app = express();
@@ -25,7 +29,6 @@ cron.schedule('30 09 * * *', async (req, res) => {
        console.log("Starting the Application");
       const result = await getJobs();
         console.log("Jobs Fetched successfuly!");
-        console.log(result.message)
     } catch (error) {
         console.log("Error running the jobs :", error);
         

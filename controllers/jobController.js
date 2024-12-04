@@ -7,9 +7,6 @@ const {sendEmail} = require("../services/email_service");
 const {groupUsersByJobCategory}= require("../services/group_users");
 const {setTimeout} = require("node:timers/promises");
 
-function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
 
 async function getJobs(){
     try{
@@ -25,10 +22,10 @@ async function getJobs(){
             }
             const filteredBy18hrs = await filterJobsBy18Hours(jobs);
             console.log("Job ran successfully for category: ", category);
-            await delay(10000);
+            await setTimeout(10000);
             console.log('Sending Emails');
             for(const user of users){
-                await delay(10000);
+                await setTimeout(10000);
             await sendEmail(filteredBy18hrs, category, user);
             }
         } 

@@ -6,6 +6,8 @@ const {filterJobsBy18Hours} = require("../services/filter_by_18");
 const {sendEmail} = require("../services/email_service");
 const {groupUsersByJobCategory}= require("../services/group_users");
 const {setTimeout} = require("node:timers/promises");
+const { getFreeJobsBuiltin } = require("../services/free_jobs_builtin");
+const {filterJobsWithin48Hours} = require("../services/filter_by_48");
 
 
 async function getJobs(){
@@ -18,15 +20,62 @@ async function getJobs(){
             const jobs = await getFreeJobs(category,level);
             if(jobs == 0)
             {
+                console.log(`No jobs found for category: ${category}`);
+                await setTimeout(30000);
+                // continue;
+            }
+            // if(jobs !=0){
+            // const filteredBy18hrs = await filterJobsBy18Hours(jobs);
+            // }
+            console.log("LinkedIn Job ran successfully for category: ", category);
+            const builtinJobs = await getFreeJobsBuiltin(category,level);
+            if(builtinJobs == 0)
+                {
+                    console.log(`No jobs found for category: ${category}`);
+                    await setTimeout(30000);
+                    // continue;
+                }
+            if( builtinJobs == 0 && jobs == 0)
+            {
                 continue;
             }
-            const filteredBy18hrs = await filterJobsBy18Hours(jobs);
-            console.log("Job ran successfully for category: ", category);
+            else{
+            var filteredBy18hrs;
+            var combinedJobs;
+             if(jobs !=0){
+            filteredBy18hrs = await filterJobsBy18Hours(jobs);
+            combinedJobs = filteredBy18hrs;
+            }
+            // const filteredBy18hrs = await filterJobsBy18Hours(jobs);
+            var filteredBy48hrs =0; 
+            if(builtinJobs != 0)
+            {
+                filteredBy48hrs = await filterJobsWithin48Hours(builtinJobs);
+            }
+            
+            if( (filteredBy18hrs != 0 || filteredBy18hrs != "") && (filteredBy48hrs != 0 || filteredBy48hrs != ""))
+            {
+                combinedJobs = filteredBy18hrs.concat(filteredBy48hrs);
+            }
+            if( (filteredBy18hrs == 0 || filteredBy18hrs == "") && (filteredBy48hrs != 0 || filteredBy48hrs != ""))
+                {
+                    combinedJobs = filteredBy48hrs;
+                }
+            
+            // const combinedJobs = [...filteredBy18hrs, ...filteredBy48hrs];
+            console.log(combinedJobs);
             await setTimeout(10000);
             console.log('Sending Emails');
             for(const user of users){
-                await setTimeout(10000);
-            await sendEmail(filteredBy18hrs, category, user);
+            await sendEmail(combinedJobs, category, user);
+            console.log(`Email sent to user: ${user.email} for category: ${category}`);
+            await setTimeout(10000);
+            }
+            console.log(`Waiting before processing the next category...`);
+            await setTimeout(30000);
+            filteredBy18hrs = "";
+            filteredBy48hrs = "";
+            // combinedJobs ="";
             }
         } 
             console.log('The batch was completed!')

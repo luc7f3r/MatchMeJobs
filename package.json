@@ -23,6 +23,8 @@
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.15",
     "nodemon": "^3.1.4",
-    "puppeteer": "^23.2.1"
+    "puppeteer": "^23.2.1",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
   }
 }

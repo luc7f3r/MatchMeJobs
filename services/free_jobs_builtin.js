@@ -20,7 +20,7 @@ async function getFreeJobsBuiltin(category, level){
     console.log(`Builtin : Experience Number :${wordExperienceRange} and Category : ${category}`);
     const browser = await puppeteer.launch({
         headless: true,
-        executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', // Update this path
+        // executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', // Update this path
         args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
     try{

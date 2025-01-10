@@ -14,7 +14,8 @@ async function createNewMmjUser(req,res) {
         email : body.email,
         contact_number : body.contact_number,
         job_role : body.job_role,
-        level : body.level
+        level : body.level,
+        subscribed : true
     });
         console.log(`${body.full_name} created successfully!`);
         return res.status(201).json({msg: `${body.full_name} created successfully!`, id : newMmjUser._id});

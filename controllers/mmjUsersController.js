@@ -25,4 +25,49 @@ async function createNewMmjUser(req,res) {
         }
 };
 
-module.exports = {createNewMmjUser};
+async function unsubscribeUser(req,res){
+    try {
+        const { email } = req.body;
+        if (!email) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Email is required' 
+            });
+        }
+        const result = await mmj_user.updateMany(
+            { email: email, subscribed : true},
+            { 
+                $set: { 
+                    subscribed: false,
+                    updatedAt: new Date() 
+                }
+            },
+            { new: true }
+        );
+        if (result.matchedCount === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'No subscribed user found with this email'
+            });
+        }
+
+        console.log(`Successfully unsubscribed ${result.modifiedCount} user(s) with email: ${email}`);
+        
+        return res.status(200).json({
+            success: true,
+            message: 'Unsubscribed successfully',
+            modifiedCount: result.modifiedCount
+        });
+
+    } catch (error) {
+        console.error('Error unsubscribing user:', error);
+        
+        return res.status(500).json({
+            success: false,
+            message: 'Failed to unsubscribe user',
+            error: error.message
+        });
+    }
+}
+
+module.exports = {createNewMmjUser, unsubscribeUser};

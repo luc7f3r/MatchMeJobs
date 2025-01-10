@@ -6,6 +6,7 @@ const schema = new mongoose.Schema({
     contact_number : {type : String, required:true},
     job_role : {type: String, required: true},
     level : {type : String, required: true},
+    subscribed : {type: Boolean, required : true}
 },{timestamps : true});
 
 const mmj_user = mongoose.model("mmj_user", schema);

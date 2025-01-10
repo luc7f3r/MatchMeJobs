@@ -14,6 +14,7 @@ async function getJobs(){
     try{
         const usersByCategory = await groupUsersByJobCategory();
         for (const categoryGroup of usersByCategory) {
+            
             const category = categoryGroup.job_role;
             const users = categoryGroup.users;
             const level = categoryGroup.level;

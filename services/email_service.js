@@ -112,6 +112,14 @@ async function sendEmail(data, keyword, user){
               Typography,
               { variant: 'body2', style: { marginTop: "5px", color: '#666'} },
               '© 2024 MATCH ME JOBS, all rights reserved.'
+            ),
+            React.createElement(
+              Typography,
+              { variant: 'body2', component: 'a',
+                href: `https://matchmejobs.in/unsubscribe?email=${email}`,
+                target: '_blank',
+                rel: 'noopener noreferrer',sx: { mt: 4, color: '#666',textDecoration: 'none', cursor: 'pointer' } }, // Light grey color for copyright notice
+              'Unsubscribe'
             )
           )
         )
